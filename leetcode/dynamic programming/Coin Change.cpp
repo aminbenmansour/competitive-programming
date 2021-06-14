@@ -14,7 +14,7 @@ int coinChange(vector<int>& coins, int amount) {
 
     for (int i = 0; i < n+1; i++) {
         for (int j = 0; j < amount+1; j++) {
-
+            
             if( i==0 ) { // Boundaries block
                 if (j == 0) { // coins NULL, amount NULL
                     dp[i][j] = 0;
