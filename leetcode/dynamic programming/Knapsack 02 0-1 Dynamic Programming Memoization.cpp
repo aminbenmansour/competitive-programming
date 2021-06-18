@@ -1,8 +1,13 @@
 /**
  * 
- * Problem description: knapsack is a widely known problem with a lot of variation like 0/1, bounded, unbounded, fractional and non fractional knapsacks 
- * this problem could be categorized under combinatorial & optimization and we will work later on others variations without forgetting our main goal
- * which is to optimize recursive problems with dynamic programming
+ * We are using memoization which relies on recursive calls and a data structure to store 
+ * encountred subproblems
+ * 
+ *  * Disadvantages are the following
+ *          * Consuming more memory
+ *          * May cause a stack overflow if recursive calls are too much
+ *  * Solution
+ *          * Using iterative DP
  * 
  * */
 
@@ -37,15 +42,18 @@ int knapsack(const vector<int> &wt, const vector<int> &profit, int w, int n) {
     if (w == 0 || n == 0)
         return 0;
 
-    if (dp[w][n] != -1) 
-        return dp[w][n];
+    // -1 in order to avoid segmentation error (similar to out of bound error) 
+    if (dp[n-1][w-1] != -1) 
+        return dp[n][w];
     
-    if (wt[n] > w) {
+    if (wt[n-1] > w) {
         result = knapsack(wt, profit, w, n-1);
     } else {
-        result = max(knapsack(wt, profit, w, n-1), profit[n] + knapsack(wt, profit, w-wt[n], n-1));
+        result = max(knapsack(wt, profit, w, n-1), profit[n-1] + knapsack(wt, profit, w-wt[n-1], n-1));
     }
-    return dp[w][n] = result;
+    
+    dp[n-1][w-1] = result;
+    return dp[n-1][w-1];
 
 }
 
@@ -62,21 +70,24 @@ int main(int argc, char **argv) {
     while(n--) {
         int val; cin >> val; wt.emplace_back(val);
     }
+
     n = items;
+
     while(n--) {
         int val; cin >> val; profit.emplace_back(val);
     }
 
-    int dp[w][items];
 
     for (int i = 0; i < items; i++) {
+        
+        vector<int> tmp;
         for (int j = 0; j < w; j++) {
-            dp[i][j] = -1;
+            tmp.emplace_back(-1);
         }
+        dp.emplace_back(tmp);
         
     }
     
-
     cout << knapsack(wt, profit, w, items);
 
     return 0 ;
