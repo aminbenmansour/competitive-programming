@@ -10,7 +10,7 @@ using namespace std;
  
 long long n;
 int m;
-map<long long, int> containers;
+multimap<long long, int> containers;
 
  
 int main(int argc, char **argv) {
@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
         cin >> a >> b; containers.insert({b, a});
     }
 
-    map<long long, int>::iterator it = containers.end();
+    multimap<long long, int>::iterator it = containers.end();
     --it;
 
     int ai;
