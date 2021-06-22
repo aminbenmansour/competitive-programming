@@ -1,6 +1,6 @@
 /**
  * 
- * Problem link: https://codeforces.com/problemset/problem/580/A
+ * Problem link: https://codeforces.com/contest/768/problem/A
  * 
  * */
 
