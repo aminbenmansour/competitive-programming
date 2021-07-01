@@ -13,8 +13,6 @@ int nodes, edges;
 vector<vector<int>> graph;
 vector<int> seen;
 
-enum status {PATH = 0, CYCLE = 1};
-
 /**
  * recursive method
  * */
@@ -24,7 +22,7 @@ bool cyclic = false;
 void dfs(int i, bool &cyclic) {
     if(seen[i]) {
         cyclic = true; return;
-    } else {
+    } else if (!cyclic) {
         seen[i] = true;
         int adj = graph[i].size();
         lp(j, adj) {
@@ -55,8 +53,6 @@ int main(int argc, char **argv) {
         graph[node].emplace_back(adjacent);
     }
  
-    
-    status stat;
     lp(i, nodes) {
         dfs(i, cyclic);
     }
